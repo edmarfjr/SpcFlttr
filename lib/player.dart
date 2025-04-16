@@ -7,23 +7,22 @@ import 'package:myapp/shooter_game.dart';
 import 'package:myapp/fx.dart';
 import 'package:myapp/inimigos.dart';
 
-class Player extends SpriteComponent 
-with HasGameRef<ShooterGame>, CollisionCallbacks {
+class Player extends SpriteComponent
+    with HasGameRef<ShooterGame>, CollisionCallbacks {
   double targetAngle = 0.0; // O ângulo para o qual o jogador deve girar
   final double rotationSpeed = 15.0; // Velocidade de rotação (rad/s)
   late final SpawnComponent _bulletSpawner;
- // 
+  //
   Player()
-    
       : super(
-           size: Vector2(50, 50),
+          size: Vector2(50, 50),
           anchor: Anchor.center,
         );
 
-   @override
+  @override
   Future<void> onLoad() async {
     await super.onLoad();
-    
+
     sprite = await gameRef.loadSprite('spcship.png');
 
     position = gameRef.size / 2;
@@ -35,10 +34,10 @@ with HasGameRef<ShooterGame>, CollisionCallbacks {
         return Bullet(
           position: position +
               Vector2(
-               sin(angle)*25,//-width / 2,
-              -cos(angle)*25,//-height / 2,
+                sin(angle) * 25, //-width / 2,
+                -cos(angle) * 25, //-height / 2,
               ),
-              angle: angle,
+          angle: angle,
         );
 
         //return bullet;
@@ -48,6 +47,7 @@ with HasGameRef<ShooterGame>, CollisionCallbacks {
 
     game.add(_bulletSpawner);
   }
+
   @override
   void update(double dt) {
     super.update(dt);
@@ -55,6 +55,7 @@ with HasGameRef<ShooterGame>, CollisionCallbacks {
     // Interpola suavemente o ângulo atual para o ângulo alvo
     angle = lerpAngle(angle, targetAngle, rotationSpeed * dt);
   }
+
   void move(Vector2 delta) {
     position.add(delta);
   }
@@ -74,18 +75,17 @@ with HasGameRef<ShooterGame>, CollisionCallbacks {
   ) {
     super.onCollisionStart(intersectionPoints, other);
     if (other is Enemy) {
-
-      game.lives--;
-        if (game.lives <= 0) {
-          game.isGameOver = true;
-          game.pauseEngine();
-        }
+      playerHit();
 
       other.removeFromParent();
       game.add(Explosion(position: position));
     }
-    
+  }
+
+  void playerHit() {
+    gameRef.lives--;
+    if (gameRef.lives <= 0) {
+      gameRef.resetGame();
+    }
   }
 }
-
-

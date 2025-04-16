@@ -63,16 +63,16 @@ class ShooterGame extends FlameGame
     player.stopShooting();
   }
 
-  @override
-  void update(double dt) {
-    super.update(dt);
-    if (isGameOver) return;
+  //@override
+  //void update(double dt) {
+    //super.update(dt);
+    //if (isGameOver) return;
 
-    score += 1 * dt.toInt();
-    if (isGameOver) {
-      resetGame();
-    }
-  }
+    //score += 1 * dt.toInt();
+    //if (isGameOver) {
+    //  resetGame();
+   // }
+  //}
 
   @override
   void render(Canvas canvas) {
@@ -97,12 +97,14 @@ class ShooterGame extends FlameGame
   void resetGame() {
     score = 0;
     lives = 3;
+    print('Score reset to: $score'); // Added print statement
+    final enemiesToRemove = <Component>[];
+    for (final child in children) {
+      if (child is Enemy) {
+        enemiesToRemove.add(child);
+      }
+    }
+    removeAll(enemiesToRemove);
     isGameOver = false;
-    player.position = size / 2;
-    children.whereType<Enemy>().forEach(remove);
-    children.whereType<PositionComponent>().forEach(remove);
-
-    add(player);
-    resumeEngine();
   }
 }

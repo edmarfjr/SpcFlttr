@@ -42,6 +42,12 @@ class Enemy extends SpriteComponent
     }
   }
 
+  void destroy() {
+    removeFromParent();
+    game.add(Explosion(position: position));
+    game.score += 10;
+  }
+
   @override
   void onCollisionStart(
     Set<Vector2> intersectionPoints,
@@ -49,11 +55,8 @@ class Enemy extends SpriteComponent
   ) {
     super.onCollisionStart(intersectionPoints, other);
     if (other is Bullet) {
-      removeFromParent();
+      destroy();
       other.removeFromParent();
-      game.add(Explosion(position: position));
-      game.score += 100;
     }
-    
   }
 }
