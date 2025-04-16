@@ -37,9 +37,9 @@ void main() {
       game.score = 100; // Set a non-zero initial score
       game.lives = 1; // Set lives to 1 to trigger game over on next hit
       await game.ensureAdd(game.player); // Ensure player is added
-      print('Score before playerHit: ${game.score}');
+   //  print('Score before playerHit: ${game.score}');
       game.player.playerHit(); // Simulate player losing the last life
-      print('Score after playerHit: ${game.score}');
+     // print('Score after playerHit: ${game.score}');
       expect(game.score, 0); // Expect score to be reset to 0
       expect(game.lives, 3); // Expect lives to be reset to 3
     }); // There should be more than 0 Inimigo after reset

@@ -1,6 +1,6 @@
   import 'dart:math';
 
-final double Gscale = 0.60;
+final double gScale = 0.60;
 
 double lerpAngle(double start, double end, double t) {
     final shortestAngle = (end - start + pi).remainder(2 * pi) - pi;
