@@ -8,8 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/inimigos.dart';
 import 'package:myapp/player.dart';
 
-class ShooterGame extends FlameGame
-    with PanDetector, HasCollisionDetection {
+class ShooterGame extends FlameGame with PanDetector, HasCollisionDetection {
   int score = 0;
   late Player player;
   int lives = 3;
@@ -31,7 +30,7 @@ class ShooterGame extends FlameGame
     add(parallax);
 
     player = Player();
-
+    add(player);
     resetGame();
 
     add(
@@ -65,13 +64,13 @@ class ShooterGame extends FlameGame
 
   //@override
   //void update(double dt) {
-    //super.update(dt);
-    //if (isGameOver) return;
+  //super.update(dt);
+  //if (isGameOver) return;
 
-    //score += 1 * dt.toInt();
-    //if (isGameOver) {
-    //  resetGame();
-   // }
+  //score += 1 * dt.toInt();
+  //if (isGameOver) {
+  //  resetGame();
+  // }
   //}
 
   @override
@@ -97,7 +96,7 @@ class ShooterGame extends FlameGame
   void resetGame() {
     score = 0;
     lives = 3;
-    print('Score reset to: $score'); // Added print statement
+   // print('Score reset to: $score'); // Added print statement
     final enemiesToRemove = <Component>[];
     for (final child in children) {
       if (child is Enemy) {

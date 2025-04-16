@@ -46,6 +46,7 @@ class Player extends SpriteComponent
     );
 
     game.add(_bulletSpawner);
+    add(RectangleHitbox());
   }
 
   @override
@@ -83,9 +84,9 @@ class Player extends SpriteComponent
   }
 
   void playerHit() {
-    gameRef.lives--;
-    if (gameRef.lives <= 0) {
-      gameRef.resetGame();
+    game.lives--;
+    if (game.lives <= 0) {
+      game.resetGame();
     }
   }
 }
